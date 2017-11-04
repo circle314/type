@@ -124,7 +124,7 @@ abstract class AbstractPrimitiveStringType extends AbstractPrimitiveType impleme
     /**
      * Checks if the length of the string is within bounds
      *
-     * @param $value The string value
+     * @param $value mixed The string value
      * @return bool
      */
     final protected function valueInBounds($value)
