@@ -34,18 +34,24 @@ trait DateTimeTypeTrait
                 // Correct type, no need to attempt conversion
             } else {
                 if(
-                    ((string)(int)$value === $value)
-                    && ($value <= PHP_INT_MAX)
-                    && ($value >= ~PHP_INT_MAX)
+                    (
+                        (string)(float)$value === $value ||
+                        (string)(int)$value === $value
+                    ) &&
+                    $value <= PHP_INT_MAX &&
+                    $value >= ~PHP_INT_MAX
                 ) {
                     // UNIX Timestamp as a string
                     new DateTime(date("c", $value));
                 } else if(
-                    ((int)$value === $value)
-                    && ($value <= PHP_INT_MAX)
-                    && ($value >= ~PHP_INT_MAX)
+                    (
+                        (float)$value === $value ||
+                        (int)$value === $value
+                    ) &&
+                    $value <= PHP_INT_MAX &&
+                    $value >= ~PHP_INT_MAX
                 ) {
-                    // UNIX Timestamp as an integer
+                    // UNIX Timestamp as a number
                     new DateTime(date("c", (int)$value));
                 } else {
                     // Try making a DateTime with whatever remains

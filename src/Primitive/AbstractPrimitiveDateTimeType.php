@@ -20,10 +20,12 @@ abstract class AbstractPrimitiveDateTimeType extends AbstractPrimitiveType imple
     use DateTimeTypeTrait;
 
     #region Constructor
+
     /**
      * AbstractPrimitiveDateTimeType constructor.
-     *
      * @param $value
+     * @throws \Circle314\Component\Type\Exception\TypeValidationException
+     * @throws \Circle314\Component\Type\Exception\ValueOutOfBoundsException
      */
     public function __construct($value)
     {
@@ -35,19 +37,25 @@ abstract class AbstractPrimitiveDateTimeType extends AbstractPrimitiveType imple
             $this->value = $value;
         } else {
             if(
-                ((string)(int)$value === $value)
-                && ($value <= PHP_INT_MAX)
-                && ($value >= ~PHP_INT_MAX)
+                (
+                    (string)(float)$value === $value ||
+                    (string)(int)$value === $value
+                ) &&
+                ($value <= PHP_INT_MAX) &&
+                ($value >= ~PHP_INT_MAX)
             ) {
                 // UNIX Timestamp as a string
-                $this->value = new DateTime(date("c", $value));
+                $this->value = DateTime::createFromFormat("U.u", $value);
             } else if(
-                ((int)$value === $value)
-                && ($value <= PHP_INT_MAX)
-                && ($value >= ~PHP_INT_MAX)
+                (
+                    (float)$value === $value ||
+                    (int)$value === $value
+                ) &&
+                ($value <= PHP_INT_MAX) &&
+                ($value >= ~PHP_INT_MAX)
             ) {
                 // UNIX Timestamp as an integer
-                $this->value = new DateTime(date("c", (int)$value));
+                $this->value = DateTime::createFromFormat("U.u", $value);
             } else {
                 // Try making a DateTime with whatever remains
                 $this->value = new DateTime($value);

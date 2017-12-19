@@ -24,6 +24,8 @@ class NonZeroIntegerType extends IntegerType
      * @param $value
      * @param null $minValue The minimum value of the number. Set to null for no minimum. Default value is null
      * @param null $maxValue The maximum value of the number. Set to null for no maximum. Default value is null
+     * @throws Exception\TypeValidationException
+     * @throws Exception\ValueOutOfBoundsException
      */
     public function __construct($value, $minValue = null, $maxValue = null)
     {

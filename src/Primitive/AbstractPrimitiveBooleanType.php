@@ -20,7 +20,8 @@ abstract class AbstractPrimitiveBooleanType extends AbstractPrimitiveType implem
     /**
      * AbstractPrimitiveBooleanType constructor.
      *
-     * @param mixed $value
+     * @param $value
+     * @throws \Circle314\Component\Type\Exception\ValueOutOfBoundsException
      */
     public function __construct($value)
     {

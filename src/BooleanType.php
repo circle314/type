@@ -23,7 +23,9 @@ class BooleanType extends AbstractPrimitiveBooleanType
     /**
      * BooleanType constructor.
      *
-     * @param mixed $value
+     * @param $value
+     * @throws Exception\TypeValidationException
+     * @throws Exception\ValueOutOfBoundsException
      */
     public function __construct($value)
     {

@@ -19,10 +19,13 @@ class DateType extends AbstractPrimitiveDateTimeType
     use NonNullableTypeTrait;
 
     #region Constructor
+
     /**
      * DateType constructor.
      *
      * @param $value
+     * @throws Exception\TypeValidationException
+     * @throws Exception\ValueOutOfBoundsException
      */
     public function __construct($value)
     {

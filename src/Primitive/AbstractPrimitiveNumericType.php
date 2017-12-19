@@ -34,6 +34,8 @@ abstract class AbstractPrimitiveNumericType extends AbstractPrimitiveType implem
      * @param $value
      * @param null $minValue The minimum value of the number. Set to null for no minimum. Default value is null
      * @param null $maxValue The maximum value of the number. Set to null for no maximum. Default value is null
+     * @throws \Circle314\Component\Type\Exception\TypeValidationException
+     * @throws \Circle314\Component\Type\Exception\ValueOutOfBoundsException
      */
     public function __construct($value, $minValue = null, $maxValue = null)
     {
