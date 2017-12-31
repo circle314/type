@@ -3,6 +3,8 @@
 namespace Circle314\Component\Type\Primitive;
 
 use \Exception;
+use Circle314\Component\Type\TypeInterface\BooleanTypeCQSCommandInterface;
+use Circle314\Component\Type\TypeInterface\BooleanTypeCQSQueryInterface;
 use Circle314\Component\Type\TypeInterface\BooleanTypeInterface;
 
 /**
@@ -53,6 +55,22 @@ abstract class AbstractPrimitiveBooleanType extends AbstractPrimitiveType implem
 
     #region Public Methods
     /**
+     * @return BooleanTypeCQSCommandInterface
+     */
+    public function asCommandsOnly()
+    {
+        return $this;
+    }
+
+    /**
+     * @return BooleanTypeCQSQueryInterface
+     */
+    public function asQueriesOnly()
+    {
+        return $this;
+    }
+
+    /**
      * Returns the current value
      *
      * @return bool
@@ -66,9 +84,9 @@ abstract class AbstractPrimitiveBooleanType extends AbstractPrimitiveType implem
      * Returns the boolean value formatted as the string 'Yes', 'No'
      *
      * @param bool $nullConvertValue The value to convert null values to before parsing out to string. Note this conversion is not permanent. Default value is null
-     * @return string
+     * @return int|null
      */
-    final public function formatInteger($nullConvertValue = null)
+    final public function formatInteger($nullConvertValue = null): ?int
     {
         $convertedValue = is_null($this->value) ? $nullConvertValue : $this->value;
         if(is_null($convertedValue)) {
@@ -84,7 +102,7 @@ abstract class AbstractPrimitiveBooleanType extends AbstractPrimitiveType implem
      * @param bool $nullConvertValue The value to convert null values to before parsing out to string. Note this conversion is not permanent. Default value is null
      * @return string
      */
-    final public function formatYesNo($nullConvertValue = null)
+    final public function formatYesNo($nullConvertValue = null): string
     {
         $convertedValue = is_null($this->value) ? $nullConvertValue : $this->value;
         if(is_null($convertedValue)) {

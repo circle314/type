@@ -3,6 +3,8 @@
 namespace Circle314\Component\Type\Primitive;
 
 use \Exception;
+use Circle314\Component\Type\TypeInterface\NumericTypeCQSCommandInterface;
+use Circle314\Component\Type\TypeInterface\NumericTypeCQSQueryInterface;
 use Circle314\Component\Type\TypeInterface\NumericTypeInterface;
 use Circle314\Component\Type\TypeTrait\NumericTypeTrait;
 
@@ -65,11 +67,27 @@ abstract class AbstractPrimitiveNumericType extends AbstractPrimitiveType implem
 
     #region Public Methods
     /**
+     * @return NumericTypeCQSCommandInterface
+     */
+    public function asCommandsOnly()
+    {
+        return $this;
+    }
+
+    /**
+     * @return NumericTypeCQSQueryInterface
+     */
+    public function asQueriesOnly()
+    {
+        return $this;
+    }
+
+    /**
      * Returns the maximum value this type can take
      *
      * @return float|null
      */
-    final public function getMaxValue()
+    final public function getMaxValue(): ?float
     {
         return $this->maxValue;
     }
@@ -79,7 +97,7 @@ abstract class AbstractPrimitiveNumericType extends AbstractPrimitiveType implem
      *
      * @return float|null
      */
-    final public function getMinValue()
+    final public function getMinValue(): ?float
     {
         return $this->minValue;
     }

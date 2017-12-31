@@ -11,10 +11,9 @@ namespace Circle314\Component\Type\TypeInterface;
  * @license     https://www.apache.org/licenses/LICENSE-2.0
  * @link        https://github.com/circle314/type
  */
-interface StringTypeInterface extends TypeInterface
+interface StringTypeInterface extends
+    StringTypeCQSCastingInterface,
+    StringTypeCQSCommandInterface,
+    StringTypeCQSQueryInterface
 {
-    public function formatLowerCase();
-    public function formatUpperCase();
-    public function getMinLength();
-    public function getMaxLength();
 }

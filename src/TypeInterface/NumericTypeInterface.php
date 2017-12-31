@@ -11,8 +11,9 @@ namespace Circle314\Component\Type\TypeInterface;
  * @license     https://www.apache.org/licenses/LICENSE-2.0
  * @link        https://github.com/circle314/type
  */
-interface NumericTypeInterface extends TypeInterface
+interface NumericTypeInterface extends
+    NumericTypeCQSCastingInterface,
+    NumericTypeCQSCommandInterface,
+    NumericTypeCQSQueryInterface
 {
-    public function getMinValue();
-    public function getMaxValue();
 }

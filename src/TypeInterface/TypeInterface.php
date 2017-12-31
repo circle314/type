@@ -2,8 +2,6 @@
 
 namespace Circle314\Component\Type\TypeInterface;
 
-use Circle314\Concept\Value\Gettable\GettableValueInterface;
-
 /**
  * Generic Type interface
  *
@@ -13,6 +11,10 @@ use Circle314\Concept\Value\Gettable\GettableValueInterface;
  * @license     https://www.apache.org/licenses/LICENSE-2.0
  * @link        https://github.com/circle314/type
  */
-interface TypeInterface extends GettableValueInterface
+interface TypeInterface extends
+    TypeCQSCastingInterface,
+    TypeCQSCommandInterface,
+    TypeCQSQueryInterface
 {
+
 }

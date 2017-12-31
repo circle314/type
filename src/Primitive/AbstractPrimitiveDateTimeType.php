@@ -3,6 +3,8 @@
 namespace Circle314\Component\Type\Primitive;
 
 use \DateTime;
+use Circle314\Component\Type\TypeInterface\DateTimeTypeCQSCommandInterface;
+use Circle314\Component\Type\TypeInterface\DateTimeTypeCQSQueryInterface;
 use Circle314\Component\Type\TypeTrait\DateTimeTypeTrait;
 use Circle314\Component\Type\TypeInterface\DateTimeTypeInterface;
 
@@ -80,6 +82,22 @@ abstract class AbstractPrimitiveDateTimeType extends AbstractPrimitiveType imple
 
     #region Public Methods
     /**
+     * @return DateTimeTypeCQSCommandInterface
+     */
+    public function asCommandsOnly()
+    {
+        return $this;
+    }
+
+    /**
+     * @return DateTimeTypeCQSQueryInterface
+     */
+    public function asQueriesOnly()
+    {
+        return $this;
+    }
+
+    /**
      * Gets the current value
      *
      * @return DateTime
@@ -95,7 +113,7 @@ abstract class AbstractPrimitiveDateTimeType extends AbstractPrimitiveType imple
      * @param $format string The date time format
      * @return null|string
      */
-    final public function format($format)
+    final public function format($format): ?string
     {
         if(is_null($this->value)) {
             return null;
@@ -110,7 +128,7 @@ abstract class AbstractPrimitiveDateTimeType extends AbstractPrimitiveType imple
      * @param DateTime|null $dateTime
      * @return bool
      */
-    final public function hasPassed(DateTime $dateTime = null)
+    final public function hasPassed(DateTime $dateTime = null): bool
     {
         $dateTime = $dateTime ?: new DateTime();
         return $this->value < $dateTime;

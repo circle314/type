@@ -3,6 +3,8 @@
 namespace Circle314\Component\Type\Primitive;
 
 use \Exception;
+use Circle314\Component\Type\TypeInterface\StringTypeCQSCommandInterface;
+use Circle314\Component\Type\TypeInterface\StringTypeCQSQueryInterface;
 use Circle314\Component\Type\TypeInterface\StringTypeInterface;
 
 /**
@@ -65,11 +67,27 @@ abstract class AbstractPrimitiveStringType extends AbstractPrimitiveType impleme
 
     #region Public Methods
     /**
+     * @return StringTypeCQSCommandInterface
+     */
+    public function asCommandsOnly()
+    {
+        return $this;
+    }
+
+    /**
+     * @return StringTypeCQSQueryInterface
+     */
+    public function asQueriesOnly()
+    {
+        return $this;
+    }
+
+    /**
      * Returns the maximum length of the string
      *
      * @return int|null
      */
-    final public function getMaxLength()
+    final public function getMaxLength(): ?int
     {
         return $this->maxLength;
     }
@@ -79,7 +97,7 @@ abstract class AbstractPrimitiveStringType extends AbstractPrimitiveType impleme
      *
      * @return int|null
      */
-    final public function getMinLength()
+    final public function getMinLength(): ?int
     {
         return $this->minLength;
     }
@@ -99,7 +117,7 @@ abstract class AbstractPrimitiveStringType extends AbstractPrimitiveType impleme
      *
      * @return string
      */
-    final public function formatLowerCase()
+    final public function formatLowerCase(): ?string
     {
         if(is_null($this->value)) {
             return $this->value;
@@ -113,7 +131,7 @@ abstract class AbstractPrimitiveStringType extends AbstractPrimitiveType impleme
      *
      * @return null|string
      */
-    final public function formatUpperCase()
+    final public function formatUpperCase(): ?string
     {
         if(is_null($this->value)) {
             return $this->value;
