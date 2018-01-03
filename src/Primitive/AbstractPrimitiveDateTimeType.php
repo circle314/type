@@ -58,6 +58,8 @@ abstract class AbstractPrimitiveDateTimeType extends AbstractPrimitiveType imple
             ) {
                 // UNIX Timestamp as an integer
                 $this->value = DateTime::createFromFormat("U.u", $value);
+            } else if($value === 'now') {
+                $this->value = DateTime::createFromFormat("U.u", microtime(true));
             } else {
                 // Try making a DateTime with whatever remains
                 $this->value = new DateTime($value);
@@ -130,7 +132,7 @@ abstract class AbstractPrimitiveDateTimeType extends AbstractPrimitiveType imple
      */
     final public function hasPassed(DateTime $dateTime = null): bool
     {
-        $dateTime = $dateTime ?: new DateTime();
+        $dateTime = $dateTime ?: DateTime::createFromFormat("U.u", microtime(true));
         return $this->value < $dateTime;
     }
     #endregion
