@@ -62,7 +62,7 @@ trait DateTimeTypeTrait
             } else {
                 if($this->isUnixTimestamp($value)) {
                     // Try making a DateTime with a UNIX Timestamp from a string
-                    new DateTime(date("U.u", $this->unixTimestampAsUuFormat($value)));
+                    DateTime::createFromFormat("U.u", $this->unixTimestampAsUuFormat($value));
                 } else {
                     // Try making a DateTime with whatever remains
                     new DateTime($value);
