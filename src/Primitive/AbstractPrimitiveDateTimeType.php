@@ -25,6 +25,7 @@ abstract class AbstractPrimitiveDateTimeType extends AbstractPrimitiveType imple
 
     /**
      * AbstractPrimitiveDateTimeType constructor.
+     * 
      * @param $value
      * @throws \Circle314\Component\Type\Exception\TypeValidationException
      * @throws \Circle314\Component\Type\Exception\ValueOutOfBoundsException
@@ -38,28 +39,12 @@ abstract class AbstractPrimitiveDateTimeType extends AbstractPrimitiveType imple
         ) {
             $this->value = $value;
         } else {
-            if(
-                (
-                    (string)(float)$value === $value ||
-                    (string)(int)$value === $value
-                ) &&
-                ($value <= PHP_INT_MAX) &&
-                ($value >= ~PHP_INT_MAX)
-            ) {
-                // UNIX Timestamp as a string
-                $this->value = DateTime::createFromFormat("U.u", $value);
-            } else if(
-                (
-                    (float)$value === $value ||
-                    (int)$value === $value
-                ) &&
-                ($value <= PHP_INT_MAX) &&
-                ($value >= ~PHP_INT_MAX)
-            ) {
-                // UNIX Timestamp as an integer
-                $this->value = DateTime::createFromFormat("U.u", $value);
+            if($this->isUnixTimestamp($value)) {
+                // Try making a DateTime with a UNIX Timestamp from a string
+                $this->value = DateTime::createFromFormat("U.u", $this->unixTimestampAsUuFormat($value));
             } else if($value === 'now') {
-                $this->value = DateTime::createFromFormat("U.u", microtime(true));
+                // Try making a DateTime with a UNIX Timestamp from 'now'
+                $this->value = DateTime::createFromFormat("U.u", $this->unixTimestampAsUuFormat(microtime(true)));
             } else {
                 // Try making a DateTime with whatever remains
                 $this->value = new DateTime($value);
@@ -132,7 +117,7 @@ abstract class AbstractPrimitiveDateTimeType extends AbstractPrimitiveType imple
      */
     final public function hasPassed(DateTime $dateTime = null): bool
     {
-        $dateTime = $dateTime ?: DateTime::createFromFormat("U.u", microtime(true));
+        $dateTime = $dateTime ?: DateTime::createFromFormat("U.u", $this->unixTimestampAsUuFormat(microtime(true)));
         return $this->value < $dateTime;
     }
     #endregion
